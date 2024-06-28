@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const { ApolloServer, gql } = require("apollo-server-express");
 const { makeExecutableSchema } = require("@graphql-tools/schema");
 
@@ -194,6 +195,9 @@ const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 async function startServer() {
     const app = express();
+
+    app.use(cors({ origin: "http://localhost:5173" }));
+
     const server = new ApolloServer({ schema });
 
     await server.start();
